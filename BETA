@@ -47,6 +47,6 @@ def move(posicao, sentido):
         pista[x+1][y-1] = 1
         return(pista)
     elif sentido == 'F':
-        pista[x][y] = 0 #transformando a posição x,y em x(t-1), y(t-1)
-        pista[x+1][y] = 1 #transformando em 1 a posicao do carro com o deslocamento resultante da aplicação da função
+        pista[x][y] = 0 
+        pista[x+1][y] = 1 
         return pista
