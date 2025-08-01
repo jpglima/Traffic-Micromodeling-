@@ -1,18 +1,24 @@
-
-#CASO MAIS BÁSICO: 2 FAIXAS E 2 CARROS
+# 0. CONCEPÇÃO DO MODELO #
+##########################
+# CASO MAIS BÁSICO: 2 FAIXAS E 2 CARROS
 # CONSIDERAR QUE OS DOIS CARROS IRÃO SE DESLOCAR EM TEMPO DISCRETO E OPTAR POR TROCAR DE FAIXA OU NÃO, DE ACORDO COM A EXPECTATIVA DO TEMPO DE CHEGADA 
 
-# criando uma pista de duas faixas e comprimento = 4
+# ex) criando uma pista de duas faixas e comprimento = 4, carros na primeira linha 
 pista = np.array([[1,1],[0,0],[0,0],[0,0]])
 
-# CARROS:
+######################################################################################################################################################
+
+# 1. CARROS:
+
 # façamos funções que recebem a posição de um carro e transformam o array de modo a "deslocar" o carro
 # suponhamos que as posições iniciais (posicao) serão dadas por uma lista [x,y] 
 def move_front(posicao):
     x = posicao[0]
     y = posicao[1]
     pista[x][y] = 0 #transformando a posição x,y em x(t-1), y(t-1)
-    pista[x+1][y] = 1 #transformando em 1 a posicao do carro com o deslocamento resultante da aplicação da função
+    pista[x+1][y] = pista[x+1][y] +1
+    #transformando em 1 a posicao do carro com o deslocamento resultante da aplicação da função
+    # note que é conveniente somar 1 pois se dois n simultaneamente se deslocarem para uma mesma posição, a pista idicará n ('acidente')
     return pista
 
 def move_diag(posicao, sentido):
@@ -23,11 +29,11 @@ def move_diag(posicao, sentido):
         return 'ERRO, ARG2 IN (R,L)'
     elif sentido == 'R':
         pista[x][y] = 0
-        pista[x+1][y+1] = 1
+        pista[x+1][y+1] = pista[x+1][y+1] +1
         return(pista)
     elif sentido == 'L':
         pista[x][y] = 0
-        pista[x+1][y-1] = 1
+        pista[x+1][y-1] = pista[x+1][y-1] +1
         return(pista)
 # note que a tentativa de um deslocamento para 'fora da pista' gera um erro de execução no código
 
@@ -40,13 +46,15 @@ def move(posicao, sentido):
         return 'ERRO, ARG2 IN (R,L,F)'
     elif sentido == 'R':
         pista[x][y] = 0
-        pista[x+1][y+1] = 1
+        pista[x+1][y+1] = pista[x+1][y+1] + 1
         return(pista)
     elif sentido == 'L':
         pista[x][y] = 0
-        pista[x+1][y-1] = 1
+        pista[x+1][y-1] = pista[x+1][y-1] + 1
         return(pista)
     elif sentido == 'F':
         pista[x][y] = 0 
-        pista[x+1][y] = 1 
+        pista[x+1][y] = pista[x+1][y]+ 1 
         return pista
+
+        
